@@ -36,7 +36,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String json = redisTemplate.opsForValue().get("user:"+userName);
         if (StringUtils.isEmpty(json)) {
             User  user = userDao.findByUserName(userName);
-            redisTemplate.opsForValue().set("user:"+user.getUserName(), JSON.toJSONString(user));
+            if (user!=null) {
+                redisTemplate.opsForValue().set("user:" + user.getUserName(), JSON.toJSONString(user));
+            }
             return user;
         }else {
             User user =  JSON.parseObject(json,User.class);

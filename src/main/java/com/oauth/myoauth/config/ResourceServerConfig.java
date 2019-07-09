@@ -1,5 +1,6 @@
 package com.oauth.myoauth.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -9,6 +10,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig implements ResourceServerConfigurer {
+    @Value("${spring.application.name}")
+    private String appName;
     @Override
     public void configure(ResourceServerSecurityConfigurer resourceServerSecurityConfigurer) throws Exception {
 //        resourceServerSecurityConfigurer.resourceId(AuthorizationServerConfig.resourceIds);
@@ -18,7 +21,7 @@ public class ResourceServerConfig implements ResourceServerConfigurer {
     public void configure(HttpSecurity httpSecurity) throws Exception {
                  httpSecurity
                          .authorizeRequests()
-                         .mvcMatchers("/test/**").authenticated()
-                         .antMatchers("/zzz/**").permitAll();
+                         .mvcMatchers("/api/**").authenticated()
+                         .antMatchers("/"+appName+"/**").permitAll();
     }
 }

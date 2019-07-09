@@ -17,9 +17,11 @@ public class UserDetailsImpl implements UserDetails{
     private String passWord;
 
     public UserDetailsImpl(User user){
-        this.id = user.getId();
-        this.userName = user.getUserName();
-        this.passWord = user.getPassword();
+        if (user!=null) {
+            this.id = user.getId();
+            this.userName = user.getUserName();
+            this.passWord = user.getPassword();
+        }
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

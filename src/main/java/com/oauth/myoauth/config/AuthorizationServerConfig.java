@@ -4,6 +4,7 @@ package com.oauth.myoauth.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oauth.myoauth.exception.BootOAuth2WebResponseExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +32,8 @@ public class AuthorizationServerConfig implements AuthorizationServerConfigurer 
 
 
     public final static String resourceIds = "myresId";
-
+    @Autowired
+    private BootOAuth2WebResponseExceptionTranslator bootWebResponseExceptionTranslator;
     @Autowired
     @Qualifier("UserDetailServiceImpl")
     private UserDetailsService userDetailsService;
@@ -73,6 +75,7 @@ public class AuthorizationServerConfig implements AuthorizationServerConfigurer 
                 .tokenStore(redisTokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
-                .reuseRefreshTokens(true);
+                .reuseRefreshTokens(true)
+                .exceptionTranslator(bootWebResponseExceptionTranslator);
     }
 }
