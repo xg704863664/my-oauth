@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -38,5 +39,12 @@ public class TestController {
         Authentication authentication = (Authentication) principal;
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         return  userDetailService.findUser(userDetails.getUsername());
+    }
+
+    @ApiOperation(value = "测试test-user",httpMethod = "GET",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping("/test1/code")
+    public String getCode(@RequestParam(value = "code") String code){
+
+        return  code;
     }
 }

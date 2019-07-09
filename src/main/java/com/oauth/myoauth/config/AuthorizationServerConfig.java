@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -60,10 +61,11 @@ public class AuthorizationServerConfig implements AuthorizationServerConfigurer 
         clientDetailsServiceConfigurer
                 .inMemory()
                 .withClient("myclient")
+                .redirectUris("http://127.0.0.1:8081/my-oauth/api/test1/code")
 //                .resourceIds(resourceIds)
                 .scopes("read_write")
                 .secret(bCryptPasswordEncoder.encode("mysecret"))
-                .authorizedGrantTypes("password", "refresh_token")
+                .authorizedGrantTypes("password", "refresh_token","authorization_code")
                 .accessTokenValiditySeconds(60 * 60 * 2)
                 .refreshTokenValiditySeconds(60 * 60 * 60 * 24);
     }
@@ -71,6 +73,7 @@ public class AuthorizationServerConfig implements AuthorizationServerConfigurer 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer authorizationServerEndpointsConfigurer) throws Exception {
         authorizationServerEndpointsConfigurer
+                .allowedTokenEndpointRequestMethods(HttpMethod.GET,HttpMethod.POST)
                 .approvalStore(tokenApprovalStore)
                 .tokenStore(redisTokenStore)
                 .authenticationManager(authenticationManager)

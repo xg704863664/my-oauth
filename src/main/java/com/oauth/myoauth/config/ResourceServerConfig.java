@@ -21,7 +21,7 @@ public class ResourceServerConfig implements ResourceServerConfigurer {
     public void configure(HttpSecurity httpSecurity) throws Exception {
                  httpSecurity
                          .authorizeRequests()
-                         .mvcMatchers("/api/**").authenticated()
+                         .mvcMatchers("/api/test/**").authenticated()
                          .antMatchers("/"+appName+"/**").permitAll();
     }
 }
