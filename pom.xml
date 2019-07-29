@@ -96,9 +96,6 @@
                 <dockerfile>src/main/docker</dockerfile>
                 <repository>${docker.registry}/${project.artifactId}</repository>
                 <tag>${project.version}</tag>
-                <buildArgs>
-                    <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-                </buildArgs>
             </configuration>
             </plugin>
         </plugins>
