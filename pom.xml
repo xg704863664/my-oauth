@@ -93,7 +93,7 @@
             <version>1.4.10</version>
             <configuration>
                 <!--<dockerfile>${project.base}</dockerfile>-->
-                <dockerfile>src/main/docker</dockerfile>
+                <!--<dockerfile>src/main/docker</dockerfile>-->
                 <repository>${docker.registry}/${project.artifactId}</repository>
                 <tag>${project.version}</tag>
             </configuration>
