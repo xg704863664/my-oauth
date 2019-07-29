@@ -91,16 +91,6 @@
             <groupId>com.spotify</groupId>
             <artifactId>dockerfile-maven-plugin</artifactId>
             <version>1.4.10</version>
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>default</id>-->
-                        <!--<goals>-->
-                            <!--&lt;!&ndash;如果package时不想用docker打包,就注释掉这个goal&ndash;&gt;-->
-                            <!--<goal>build</goal>-->
-                            <!--<goal>push</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
             <configuration>
                 <!--<dockerfile>src/main/docker</dockerfile>-->
                 <repository>${docker.registry}/${project.artifactId}</repository>
