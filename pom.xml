@@ -94,6 +94,7 @@
             <configuration>
                 <!--<dockerfile>${project.base}</dockerfile>-->
                 <!--<dockerfile>src/main/docker</dockerfile>-->
+                <contextDirectory>src/main/docker</contextDirectory>
                 <repository>${docker.registry}/${project.artifactId}</repository>
                 <tag>${project.version}</tag>
             </configuration>
