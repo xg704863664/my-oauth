@@ -1,0 +1,20 @@
+
+---打包前停止删除容器镜像--
+BUILD_ID=my-oauth
+imagesId=$(docker images -a|grep $BUILD_ID |awk '{print $3}')
+if [ ! -n "$imagesId" ]; then
+echo "IS NULL"
+else
+containerId=$(docker ps -a| grep $imagesId | awk '{print $1}')
+docker stop $containerId
+docker rm $containerId
+docker rmi $imagesId
+fi
+
+---打包完成后运行镜像容器---
+BUILD_ID=my-oauth
+imagesId=$(docker images -a|grep $BUILD_ID |awk '{print $3}')
+docker run -it -d -p 8088:8081 -v /logs/$BUILD_ID:/logs --privileged=true $imagesId
+
+---进入容器命令---
+docker exec -it <容器id> /bin/bash
